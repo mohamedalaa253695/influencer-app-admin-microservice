@@ -44,8 +44,9 @@ class ProductController
         $this->userService->allows('edit', 'products');
 
         $product = Product::create($request->only('title', 'description', 'image', 'price'));
-
+        // dd($product->toArray());
         ProductCreated::dispatch($product->toArray())->onQueue('checkout_queue');
+        ProductCreated::dispatch($product->toArray())->onQueue('influencer_queue');
 
         return response($product, Response::HTTP_CREATED);
     }
@@ -77,6 +78,7 @@ class ProductController
         $product->update($request->only('title', 'description', 'image', 'price'));
 
         ProductUpdated::dispatch($product->toArray())->onQueue('checkout_queue');
+        ProductUpdated::dispatch($product->toArray())->onQueue('influencer_queue');
 
         return response($product, Response::HTTP_CREATED);
     }
@@ -92,8 +94,9 @@ class ProductController
         $this->userService->allows('edit', 'products');
 
         Product::destroy($product->id);
-
+        // dd($product);
         ProductDeleted::dispatch($product->id)->onQueue('checkout_queue');
+        ProductDeleted::dispatch($product->id)->onQueue('influencer_queue');
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

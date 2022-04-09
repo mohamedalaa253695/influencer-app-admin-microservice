@@ -20,7 +20,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: "php artisan queue:work"
+    command: "php artisan rabbitmq:consume"
+    restart: unless-stopped
     environment:
       DB_HOST: admin_db
       DB_DATABASE: admin

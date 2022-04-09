@@ -30,7 +30,7 @@ Route::group([
 ], function () {
     Route::get('chart', [DashboardController::class, 'chart']);
     Route::post('upload', [ImageController::class, 'upload']);
-    Route::get('export', [OrderController::class, 'export']);
+    Route::get('export', [OrderController::class, 'exportAsCsv']);
 
     Route::apiResource('users', UserController::class);
     Route::apiResource('roles', RoleController::class);

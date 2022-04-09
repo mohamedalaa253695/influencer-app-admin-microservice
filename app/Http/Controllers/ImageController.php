@@ -11,11 +11,11 @@ class ImageController
     {
         $file = $request->file('image');
         $name = Str::random(10);
-        $image_url = Storage::putFileAs('images', $file, $name . '.' . $file->extension());
+        $image_url = Storage::putFileAs('public/images', $file, $name . '.' . $file->extension());
 
         return [
 
-            'url' => env('APP_URL') . '/' . $image_url,
+            'url' => env('APP_URL') . '/storage/' . str_replace('public/', '', $image_url),
         ];
     }
 }

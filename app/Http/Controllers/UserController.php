@@ -39,7 +39,7 @@ class UserController extends Controller
             'user_id' => $user->id,
             'role_id' => $request->input('role_id'),
         ]);
-        AdminAdded::dispatch($user->email);
+        AdminAdded::dispatch($user->email)->onQueue('emails_queue');
         return response(new UserResource($user), Response::HTTP_CREATED);
     }
 

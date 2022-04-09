@@ -11,11 +11,11 @@ class ProductDeleted implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $id ;
+    private $data ;
 
-    public function __construct($id)
+    public function __construct($data)
     {
-        $this->id = $id;
+        $this->data = $data;
     }
 
     /**

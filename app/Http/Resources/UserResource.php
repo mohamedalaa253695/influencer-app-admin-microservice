@@ -17,12 +17,13 @@ class UserResource extends JsonResource
     {
         $userRole = UserRole::where('user_id', $this->id)->first();
         $role = Role::find($userRole->role_id);
+        // dd($role);
         return [
             'id' => $this->id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'email' => $this->email,
-            'permissions' => $role->permission->pluck('name'),
+            'permissions' => $role->permissions->pluck('name'),
             'role' => $role
         ];
     }

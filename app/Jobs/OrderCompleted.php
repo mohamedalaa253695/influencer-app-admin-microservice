@@ -13,13 +13,13 @@ class OrderCompleted implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $orderData ;
-    public $orderItemsData ;
+    private $orderData ;
+    private $orderItemsData ;
+    private $data;
 
-    public function __construct($orderData, $orderItemsData)
+    public function __construct($data)
     {
-        $this->orderData = $orderData;
-        $this->orderItemsData = $orderItemsData;
+        $this->data = $data;
     }
 
     /**
@@ -29,9 +29,15 @@ class OrderCompleted implements ShouldQueue
      */
     public function handle()
     {
-        $data = $this->orderData;
-        unset($data['complete']);
-        Order::create($data);
+        $this->orderData = $this->data[0];
+        $this->orderItemsData = $this->data[1];
+        // $data = $this->orderData;
+        // print_r($this->orderData);
+        unset($this->orderData['complete'], $this->orderData['influencer_total'] , $this->orderData['admin_total']);
+
+        // print_r($this->orderData);
+
+        Order::create($this->orderData);
 
         foreach ($this->orderItemsData as $item) {
             $item['revenue'] = $item['admin_revenue'];

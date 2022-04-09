@@ -17,7 +17,7 @@ class AdminAdded implements ShouldQueue
      * @return void
      */
 
-    public $email ;
+    private $email ;
 
     public function __construct($email)
     {
